@@ -14,10 +14,12 @@ export const aboutMe = {
     name: "Abir Hirani",
     githubUsername: "Abirh10",
 
+    // The globe is now a decorative CSS rotating-earth visual (no real
+    // lat/lng arc capability), so this is just a caption — see
+    // src/components/ui/globe-cobe.tsx for the archived version that could
+    // plot a real geographic arc between two points if that's wanted again.
     journey: {
-        label: "Windsor, ON → San Francisco, CA",
-        from: { lat: 42.3149, lng: -83.0364, color: "#ff7a33", label: "Windsor, ON" },
-        to: { lat: 37.7749, lng: -122.4194, color: "#4ade80", label: "San Francisco, CA" },
+        label: "Dubai → Windsor, ON",
     },
 
     favTool: "React",

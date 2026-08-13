@@ -16,13 +16,18 @@ import AllPosts from './pages/AllPosts'
 import NotFound from './pages/NotFound'
 import AboutMe from './pages/AboutMe'
 import BackgroundPixelStarsDemo from './components/ui/background-pixel-stars.demo'
+import StarshipShaderDemo from './components/ui/starship-shader.demo'
 
 const router = createBrowserRouter([
-    // Standalone showcase route for the shadcn-style BackgroundPixelStars
-    // component — rendered full-bleed, outside the blog's Header/Footer chrome.
+    // Standalone showcase routes for shadcn-style background components —
+    // rendered full-bleed, outside the blog's Header/Footer chrome.
     {
         path: '/stars-demo',
         element: <BackgroundPixelStarsDemo />,
+    },
+    {
+        path: '/shader-demo',
+        element: <StarshipShaderDemo />,
     },
     {
         path: '/',

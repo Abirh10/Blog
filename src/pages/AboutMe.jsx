@@ -13,7 +13,7 @@ import {
 import { Container } from '../components'
 import { BentoCard } from '../components/ui/bento-card'
 import { GithubIcon } from '../components/ui/icons'
-import { Globe } from '../components/ui/globe'
+import Globe from '../components/ui/globe'
 import { ScratchToReveal } from '../components/ui/scratch-to-reveal'
 import { NumberTicker } from '../components/ui/number-ticker'
 import { Marquee } from '../components/ui/marquee'
@@ -54,10 +54,10 @@ function AboutMe() {
             <div className="py-12 md:py-16">
                 <Container>
                     <div className="mb-10 animate-fade-up text-center">
-                        <span className="mb-4 inline-block rounded-full border border-border-soft bg-surface px-3 py-1 text-xs font-medium uppercase tracking-widest text-ink-muted">
+                        <span className="mb-4 inline-block rounded-full border border-accent-secondary/30 bg-accent-secondary-soft px-3 py-1 text-xs font-medium uppercase tracking-widest text-accent-secondary">
                             Signed in
                         </span>
-                        <h1 className="font-display text-4xl font-semibold text-ink md:text-5xl">
+                        <h1 className="text-gradient-gold font-display text-4xl font-semibold md:text-5xl">
                             About me...
                         </h1>
                         <p className="mx-auto mt-3 max-w-lg text-ink-muted">
@@ -69,8 +69,8 @@ function AboutMe() {
                     <ul className="about-me-grid list-none animate-fade-up">
                         <li style={{ gridArea: 'location' }}>
                             <BentoCard icon={<MapPin size={18} />} title={aboutMe.journey.label} className="h-full">
-                                <div className="relative flex flex-1 items-center justify-center">
-                                    <Globe from={aboutMe.journey.from} to={aboutMe.journey.to} />
+                                <div className="relative flex flex-1 items-center justify-center overflow-hidden">
+                                    <Globe fullscreen={false} />
                                 </div>
                             </BentoCard>
                         </li>

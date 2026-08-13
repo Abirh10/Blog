@@ -14,9 +14,21 @@
     --color-border-soft: #e4d9c4;
     --color-ink: #1b1710;
     --color-ink-muted: #6e6553;
-    --color-accent: #6d28d9;
-    --color-accent-ink: #fffaf4;
-    --color-accent-soft: #ede4fb;
+
+    /* Primary accent — warm gold, tuned to sit in the same family as the
+       Starship shader's molten-gold streaks (see App.jsx background). */
+    --color-accent: #b45309;
+    --color-accent-ink: #fffbef;
+    --color-accent-soft: #fbeacb;
+
+    /* Secondary accent — the violet from the shader's corner nebula glow.
+       Used sparingly (badges, a second gradient stop, a hover glow) so the
+       page reads as gold-led with a violet accent, not two accents fighting
+       for attention. */
+    --color-accent-secondary: #7c3aed;
+    --color-accent-secondary-ink: #fffaf4;
+    --color-accent-secondary-soft: #ede4fb;
+
     --color-danger: #c22e2e;
     --color-danger-soft: #f6dede;
     --color-success: #2f7d4f;
@@ -39,9 +51,18 @@
     --color-border-soft: #332c3f;
     --color-ink: #f4eee1;
     --color-ink-muted: #a79c86;
-    --color-accent: #b794f6;
-    --color-accent-ink: #1b1030;
-    --color-accent-soft: #2f2147;
+
+    /* Molten gold — reads clean against the shader's near-black backdrop and
+       sits in the same hue family as its brightest streaks. */
+    --color-accent: #f0b429;
+    --color-accent-ink: #2b1b04;
+    --color-accent-soft: #3d2a0c;
+
+    /* The shader's corner nebula, as a UI color. */
+    --color-accent-secondary: #b794f6;
+    --color-accent-secondary-ink: #1b1030;
+    --color-accent-secondary-soft: #2f2147;
+
     --color-danger: #ff6b6b;
     --color-danger-soft: #3a1f1f;
     --color-success: #4ade80;
@@ -65,20 +86,6 @@ body {
 ::selection {
     background: var(--color-accent);
     color: var(--color-accent-ink);
-}
-
-/* Subtle paper grain so flat colour fields don't feel flat/cheap */
-.bg-grain {
-    position: relative;
-}
-.bg-grain::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.5;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
 }
 
 /* Rich-text article body typography for post content rendered via html-react-parser */
@@ -125,6 +132,27 @@ body {
 }
 .animate-fade-up {
     animation: fade-up 0.5s ease both;
+}
+
+/* Hero headline treatment — a gold→violet→gold sweep, echoing both halves
+   of the shader background (molten streaks + corner nebula) in one line of
+   text. Reserved for the one or two real hero moments per page; everything
+   else stays solid text-ink for readability. Falls back to solid gold in
+   browsers without background-clip:text support, since `color` is set
+   first and only visually overridden where the clip is honored. */
+.text-gradient-gold {
+    color: var(--color-accent);
+    background-image: linear-gradient(
+        100deg,
+        var(--color-accent) 0%,
+        var(--color-accent) 35%,
+        var(--color-accent-secondary) 60%,
+        var(--color-accent) 85%,
+        var(--color-accent) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* --- Bento grid (About Me page) --- */

@@ -18,17 +18,17 @@ function Home() {
 
     return (
         <div className="w-full">
-            <section className="bg-grain relative overflow-hidden border-b border-border-soft">
-                <div
-                    className="pointer-events-none absolute -top-24 right-[-10%] h-80 w-80 rounded-full opacity-30 blur-3xl"
-                    style={{ background: "var(--color-accent)" }}
-                />
+            {/* No decoration of its own here on purpose — the gold-streaks +
+                starfield backdrop (App.jsx) now shows through on every page,
+                so a page-specific blurred blob would just be redundant
+                clutter layered on top of it. */}
+            <section className="relative overflow-hidden border-b border-border-soft">
                 <Container>
                     <div className="relative z-10 py-20 md:py-28 max-w-2xl animate-fade-up">
                         <span className="inline-block mb-5 rounded-full border border-border-soft bg-surface px-3 py-1 text-xs font-medium uppercase tracking-widest text-ink-muted">
                             Writing on code, craft &amp; the odd tangent
                         </span>
-                        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05] text-ink">
+                        <h1 className="text-gradient-gold font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.05]">
                             About Abir Hirani
                         </h1>
                         <p className="mt-6 text-lg text-ink-muted leading-relaxed">

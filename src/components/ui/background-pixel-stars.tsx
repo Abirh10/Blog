@@ -71,8 +71,28 @@ type StartPoint = {
   angle: number;
 };
 
+export interface BackgroundPixelStarsProps {
+  /** Default (true): the component positions and layers itself — fixed,
+   * full-viewport, behind everything (used by the /stars-demo showcase).
+   * Pass false to instead fill whatever positioned parent it's placed in
+   * (e.g. layered on top of another background effect) without fighting
+   * that parent over z-index/positioning. */
+  standalone?: boolean;
+  /** Multiplies star count. 1 = the original density; use a fraction for a
+   * subtler field when this is a secondary layer rather than the whole
+   * background on its own. */
+  density?: number;
+  /** Shooting stars/meteor showers on or off — off for a calmer, "just
+   * stars" look when layered under something busier (e.g. an already-bright
+   * shader). */
+  meteors?: boolean;
+  /** Star colors to draw from. Defaults to the full 16-bit-style palette;
+   * pass a narrower warm-toned set to better match a specific background. */
+  palette?: readonly string[];
+}
+
 export const BackgroundPixelStars = memo(
-  () => {
+  ({ standalone = true, density = 1, meteors = true, palette = STAR_COLORS }: BackgroundPixelStarsProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const animationFrameRef = useRef<number | null>(null);
     const shootingStarTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -149,19 +169,19 @@ export const BackgroundPixelStars = memo(
 
       // Generate new stars
       const area = width * height;
-      const numStars = Math.floor(area * starDensity);
+      const numStars = Math.floor(area * starDensity * density);
 
       for (let i = 0; i < numStars; i++) {
         const shouldTwinkle = Math.random() < twinkleProbability;
         const gridX = Math.floor(Math.random() * (width / pixelSize)) * pixelSize;
         const gridY = Math.floor(Math.random() * (height / pixelSize)) * pixelSize;
-        const colorIndex = Math.floor(Math.random() * STAR_COLORS.length);
+        const colorIndex = Math.floor(Math.random() * palette.length);
         const baseOpacity = Math.random() * 0.5 + 0.5;
 
         backgroundStarsRef.current.push({
           x: gridX,
           y: gridY,
-          color: STAR_COLORS[colorIndex]!,
+          color: palette[colorIndex]!,
           baseOpacity,
           currentOpacity: baseOpacity,
           twinkle: shouldTwinkle,
@@ -190,13 +210,13 @@ export const BackgroundPixelStars = memo(
         const shouldTwinkle = Math.random() < twinkleProbability;
         const gridX = Math.floor(Math.random() * (width / pixelSize)) * pixelSize;
         const gridY = Math.floor(Math.random() * (height / pixelSize)) * pixelSize;
-        const colorIndex = Math.floor(Math.random() * STAR_COLORS.length);
+        const colorIndex = Math.floor(Math.random() * palette.length);
         const baseOpacity = Math.random() * 0.5 + 0.5;
 
         backgroundStarsRef.current[randomIndex] = {
           x: gridX,
           y: gridY,
-          color: STAR_COLORS[colorIndex]!,
+          color: palette[colorIndex]!,
           baseOpacity,
           currentOpacity: baseOpacity,
           twinkle: shouldTwinkle,
@@ -397,8 +417,8 @@ export const BackgroundPixelStars = memo(
         shootingStarTimeoutRef.current = setTimeout(createShootingStar, randomDelay);
       };
 
-      // Create first shooting star
-      createShootingStar();
+      // Create the first shooting star (unless meteors are off entirely)
+      if (meteors) createShootingStar();
 
       // Set up regeneration interval for background stars
       const regenerationInterval = setInterval(regenerateBackgroundStars, starRegenerationInterval);
@@ -452,7 +472,11 @@ export const BackgroundPixelStars = memo(
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 -z-10 touch-none"
+        className={
+          standalone
+            ? "pointer-events-none fixed inset-0 -z-10 touch-none"
+            : "pointer-events-none absolute inset-0 touch-none"
+        }
       />
     );
   },
