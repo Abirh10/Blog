@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postinstall": "node scripts/copy-tinymce-assets.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
@@ -27,7 +28,8 @@
     "react-router-dom": "^7.18.2",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.3",
-    "three": "^0.185.1"
+    "three": "^0.185.1",
+    "tinymce": "^8.8.2"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

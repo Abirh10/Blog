@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Self-hosted TinyMCE runtime — copied from node_modules/tinymce by the
+# postinstall script (scripts/copy-tinymce-assets.mjs), not source
+public/tinymce
+
 # Environment variables (Appwrite keys) - never commit real credentials
 .env
 .env.*

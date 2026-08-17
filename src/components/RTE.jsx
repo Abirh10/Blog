@@ -13,6 +13,12 @@ export default function RTE({name, control, label, defaultValue =""}) {
     control={control}
     render={({field: {onChange}}) => (
         <Editor
+        // Self-hosted (public/tinymce, copied from node_modules/tinymce by
+        // scripts/copy-tinymce-assets.mjs on postinstall) rather than
+        // TinyMCE's cloud CDN — no API key or tiny.cloud account needed,
+        // and no "Finish setting up" nag blocking the editor.
+        tinymceScriptSrc="/tinymce/tinymce.min.js"
+        licenseKey="gpl"
         initialValue={defaultValue}
         init={{
             initialValue: defaultValue,
