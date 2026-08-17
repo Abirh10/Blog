@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: (
-                    <AuthLayout authentication={false}>
+                    <AuthLayout authentication={false} redirectTo="/about-me">
                         <Login />
                     </AuthLayout>
                 ),
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: (
-                    <AuthLayout authentication={false}>
+                    <AuthLayout authentication={false} redirectTo="/about-me">
                         <Signup />
                     </AuthLayout>
                 ),

@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import authService from '../appwrite/auth'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { login } from '../store/authSlice'
 import { Button, Input, Logo } from './index'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 
 function Signup() {
-    const navigate = useNavigate()
     const [error, setError] = useState('')
     const dispatch = useDispatch()
     const { register, handleSubmit, formState: { isSubmitting } } = useForm()
@@ -18,8 +17,10 @@ function Signup() {
             const userAccount = await authService.createAccount(data)
             if (userAccount) {
                 const userData = await authService.getCurrentUser()
+                // No navigate() here — see Login.jsx for why: AuthLayout
+                // (wrapping this form with redirectTo="/about-me") already
+                // owns this redirect, and a second one here raced it.
                 if (userData) dispatch(login({ userData }))
-                navigate('/about-me')
             }
         } catch (error) {
             setError(error.message)
